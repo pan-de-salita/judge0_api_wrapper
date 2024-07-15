@@ -18,8 +18,12 @@ module Judge0
     end
 
     def format(result)
-      { status: result.status, reason_phrase: result.reason_phrase,
-        submissions_ramaining: result.headers['x-ratelimit-submissions-remaining'], data: JSON.parse(result.body) }
+      {
+        status: result.status,
+        reason_phrase: result.reason_phrase,
+        submissions_ramaining: result.headers['x-ratelimit-submissions-remaining'],
+        data: JSON.parse(result.body)
+      }
     rescue Faraday::Error => e
       { status: e.response_status, message: Errors.translate(e.response_status), data: e.response_body }
     end
