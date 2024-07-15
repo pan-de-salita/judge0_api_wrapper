@@ -31,11 +31,5 @@ module Judge0
     def self.read_submission(token:, fields: %w[stdout stderr status_id language_id])
       Request.call(http_method: :get, endpoint: "/submissions/#{token}?base64_encoded=false&fields=#{fields.join(',')}")
     end
-
-    protected
-
-    def format_fields(field_arr)
-      field_arr.split(/\s+/).join(',')
-    end
   end
 end
