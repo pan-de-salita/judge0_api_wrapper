@@ -14,10 +14,10 @@ module Judge0
     def self.call(http_method:, endpoint:, body: nil)
       result = body.nil? ? CONNECTION.send(http_method, endpoint) : CONNECTION.send(http_method, endpoint, body)
 
-      format(result)
+      process(result)
     end
 
-    def format(result)
+    def process(result)
       {
         status: result.status,
         reason_phrase: result.reason_phrase,
@@ -25,7 +25,15 @@ module Judge0
         data: JSON.parse(result.body)
       }
     rescue Faraday::Error => e
-      { status: e.response_status, message: Errors.translate(e.response_status), data: e.response_body }
+      format(e)
+    end
+
+    def format(error)
+      {
+        status: error.response_status,
+        message: Errors.translate(error.response_status),
+        data: error.response_body
+      }
     end
   end
 end
