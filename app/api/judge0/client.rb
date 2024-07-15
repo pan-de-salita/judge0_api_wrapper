@@ -15,6 +15,8 @@ module Judge0
     end
 
     def self.language(language_id:)
+      raise ArgumentError, 'Invalid language ID' unless language_id.is_a?(Integer)
+
       Request.call(http_method: :get, endpoint: "/languages/#{language_id}")
     end
 
