@@ -2,10 +2,17 @@
 
 module Api
   module V1
-    class StatusesController < ActionController::API
+    class StatusesController < ApplicationController
+      before_action :fetch_statuses
+
       def index
-        statuses = Judge0::Client.statuses
-        render json: statuses
+        render json: @statuses
+      end
+
+      private
+
+      def fetch_statuses
+        @statuses = Judge0::Client.statuses
       end
     end
   end

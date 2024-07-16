@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class LanguagesController < ActionController::API
+    class LanguagesController < ApplicationController
       before_action :fetch_languages
 
       def index
