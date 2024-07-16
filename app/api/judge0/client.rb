@@ -32,7 +32,7 @@ module Judge0
     end
 
     def self.read_submission(token:, fields: %w[source_code stdout stderr status_id language_id token])
-      raise ArgumentError if token.nil?
+      raise ArgumentError, 'Missing required submission token' if token.nil?
 
       Request.call(http_method: :get,
                    endpoint: "/submissions/#{token}?base64_encoded=false&fields=#{fields.join(',')}")
