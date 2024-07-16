@@ -16,31 +16,14 @@ module Judge0
 
   class Request
     def self.call(http_method:, endpoint:, body: nil)
-      result = if body.nil?
-                 CONNECTION.send(http_method, endpoint)
-               else
-                 CONNECTION.send(http_method, endpoint, body)
-               end
-      process(result)
-    end
+      result = CONNECTION.send(http_method, endpoint) do |req|
+        req.body = body unless body.nil?
+      end
 
-    def self.process(result)
-      {
-        status: result.status,
-        reason_phrase: result.reason_phrase,
-        submissions_ramaining: result.headers['x-ratelimit-submissions-remaining'],
-        data: result.body
-      }
+      { status: result.status, reason_phrase: result.reason_phrase,
+        submissions_ramaining: result.headers['x-ratelimit-submissions-remaining'], data: result.body }
     rescue Faraday::Error => e
-      format(e)
-    end
-
-    def self.format(error)
-      {
-        status: error.response_status,
-        message: Errors.translate(error.response_status),
-        data: error.response_body
-      }
+      { status: e.response_status, message: Errors.translate(e.response_status), data: JSON.parse(e.response_body) }
     end
   end
 end

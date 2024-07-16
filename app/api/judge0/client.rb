@@ -27,12 +27,13 @@ module Judge0
       Request.call(
         http_method: :post,
         endpoint: '/submissions/?base64_encoded=false&wait=false',
-        body: { 'source_code': source_code, 'language_id': language_id, 'stdin': stdin }
+        body: { 'source_code': source_code, 'language_id': language_id, 'stdin': stdin }.to_json
       )
     end
 
-    def self.read_submission(token:)
-      Request.call(http_method: :get, endpoint: "/submissions/#{token}?base64_encoded=false&fields=*")
+    def self.read_submission(token:, fields: %w[source_code stdout stderr status_id language_id token])
+      Request.call(http_method: :get,
+                   endpoint: "/submissions/#{token}?base64_encoded=false&fields=#{fields.join(',')}")
     end
   end
 end
