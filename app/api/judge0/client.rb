@@ -31,11 +31,8 @@ module Judge0
       )
     end
 
-    def self.read_submission(token:, fields: %w[stdout stderr status_id language_id])
-      Request.call(
-        http_method: :get,
-        endpoint: "/submissions/#{token}?base64_encoded=false&fields=#{fields.join(',')}"
-      )
+    def self.read_submission(token:)
+      Request.call(http_method: :get, endpoint: "/submissions/#{token}?base64_encoded=false&fields=*")
     end
   end
 end
