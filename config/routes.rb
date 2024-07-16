@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      # Statuses
+      get '/statuses', to: 'statuses#index'
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+      # Languages
+      get '/all_languages', to: 'languages#index'
+      get '/active_languages', to: 'languages#index_active'
+      get '/archived_languages', to: 'languages#index_archived'
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+      # Submissions
+    end
+
+    # add other versions as needed
+  end
 end

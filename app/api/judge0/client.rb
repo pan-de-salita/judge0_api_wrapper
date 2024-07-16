@@ -27,7 +27,11 @@ module Judge0
       Request.call(
         http_method: :post,
         endpoint: '/submissions/?base64_encoded=false&wait=false',
-        body: { 'source_code': source_code, 'language_id': language_id, 'stdin': stdin }.to_json
+        body: {
+          'source_code': source_code,
+          'language_id': language_id,
+          'stdin': stdin
+        }.to_json
       )
     end
 
