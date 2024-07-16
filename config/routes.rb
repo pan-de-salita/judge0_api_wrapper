@@ -5,9 +5,7 @@ Rails.application.routes.draw do
       get '/statuses', to: 'statuses#index'
 
       # Languages
-      get '/all_languages', to: 'languages#index'
-      get '/active_languages', to: 'languages#index_active'
-      get '/archived_languages', to: 'languages#index_archived'
+      get '/languages', to: 'languages#index'
 
       # Submissions
     end
