@@ -27,7 +27,7 @@ module Api
         when 'false'
           archived_languages
         else
-          language_category_error
+          invalid_language_category
         end
       end
 
@@ -39,7 +39,7 @@ module Api
         @languages[:data] = @languages[:data].select { |lang| lang['is_archived'] }
       end
 
-      def language_category_error
+      def invalid_language_category
         @languages = { status: 400, reason_phrase: 'No such language category' }
       end
     end
