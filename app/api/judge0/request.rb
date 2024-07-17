@@ -10,8 +10,10 @@ module Judge0
   }.freeze
 
   CONNECTION = Faraday.new(url: BASE_URL, headers: HEADERS) do |faraday|
+    faraday.request :json
     faraday.response :json
     faraday.response :raise_error
+    faraday.response :logger
   end
 
   class Request

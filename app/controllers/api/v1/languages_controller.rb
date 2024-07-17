@@ -6,7 +6,7 @@ module Api
       before_action :fetch_languages
 
       def index
-        filter_language_by_active_status(languages_params[:active].to_s.downcase) if languages_params[:active]
+        filter_language_by_active_status(params[:active].to_s.downcase) if params[:active]
         render(json: @languages)
       end
 
@@ -14,10 +14,6 @@ module Api
 
       def fetch_languages
         @languages = Judge0::Client.all_languages
-      end
-
-      def languages_params
-        params.permit :active
       end
 
       def filter_language_by_active_status(active_status)
