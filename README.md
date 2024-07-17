@@ -13,8 +13,7 @@ A Ruby module simplifying interactions with the Judge0 API, supporting operation
 
 - Step 1: Clone the project.
 - Step 2: Run `db:create` and `bundle install` as prerequisites.
-- Step 3: Set up Judge0 authentication key in `.env`
-Subscribe to Judge0's free Basic Plan on RapidAPI or host the API on your local machine*. After, set up `'X_RAPIDAPI_KEY'` with your authentication token in a `.env` file, i.e. `X_RAPIDAPI_KEY=your_authentication_token_here`.
+- Step 3: Subscribe to Judge0's free Basic Plan on RapidAPI or host the API on your local machine*. After, set up `'X_RAPIDAPI_KEY'` with your authentication token in a `.env` file, i.e. `X_RAPIDAPI_KEY=your_authentication_token_here`.
 - Step 4: Fire up Rails Console with `rails c`.
 
 ## Usage
