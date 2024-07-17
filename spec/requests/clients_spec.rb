@@ -31,9 +31,12 @@ RSpec.describe Judge0::Client, type: :request do
         .to_return(status: 200, body: statuses_body)
 
       response = Judge0::Client.statuses
+      parsed_response_data = JSON.parse(response[:data])
+
       expect(response[:status]).to eq(200)
-      expect(JSON.parse(response[:data])['reason_phrase']).to eq('OK')
-      expect(JSON.parse(response[:data])['data']).to be_kind_of(Array)
+      expect(parsed_response_data['reason_phrase']).to eq('OK')
+      expect(parsed_response_data['data']).to be_kind_of(Array)
+      expect(parsed_response_data['data'].all? { |entry| entry.keys == %w[id description] }).to be_truthy
     end
   end
 
