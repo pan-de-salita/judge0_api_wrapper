@@ -18,7 +18,9 @@ Subscribe to Judge0's free Basic Plan on RapidAPI or host the API on your local 
 
 ### Fetching response statuses
 
-```Judge0.client.statuses```
+```
+Judge0.client.statuses
+```
 
 ### Retrieving active languages
 
