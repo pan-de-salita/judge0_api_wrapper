@@ -2,10 +2,9 @@
 
 module Judge0
   BASE_URL = 'https://judge0-ce.p.rapidapi.com'
-  AUTHENTICATION_TOKEN = ENV['X_RAPIDAPI_KEY']
   HEADERS = {
     'Content-Type': 'application/json',
-    'x-rapidapi-key': AUTHENTICATION_TOKEN,
+    'x-rapidapi-key': ENV['X_RAPIDAPI_KEY'],
     'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
   }.freeze
 

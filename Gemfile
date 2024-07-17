@@ -51,5 +51,10 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  # Webmock for stubbing HTTP requests
+  gem 'webmock'
+end
+
 # HTTP client library abstraction layer
 gem 'faraday'
