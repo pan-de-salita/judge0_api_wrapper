@@ -7,7 +7,7 @@ module Api
 
       def index
         filter_language_by_active_status(params[:active].to_s.downcase) if params[:active]
-        render(json: @languages)
+        render json: @languages
       end
 
       private
