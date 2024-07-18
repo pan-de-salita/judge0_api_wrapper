@@ -54,6 +54,9 @@ end
 group :test do
   # Webmock for stubbing HTTP requests
   gem 'webmock'
+
+  # VCR for recording test suite's HTTP interactions
+  gem 'vcr'
 end
 
 # HTTP client library abstraction layer
