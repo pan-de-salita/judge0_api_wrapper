@@ -1,0 +1,87 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://judge0-ce.p.rapidapi.com/submissions/?base64_encoded=false&wait=false
+    body:
+      encoding: UTF-8
+      string: '{"source_code":"def add(a, b)\n  p a + b\nend\n\nadd(5, 5)","language_id":72,"stdin":null}'
+    headers:
+      Content-Type:
+      - application/json
+      X-Rapidapi-Key:
+      - 406c712f9amshd3f29dc7399bf53p1e12f7jsnf2d52b6c80e2
+      X-Rapidapi-Host:
+      - judge0-ce.p.rapidapi.com
+      User-Agent:
+      - Faraday v2.10.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Thu, 18 Jul 2024 08:55:58 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Etag:
+      - W/"26bb9472d6a3ad8b016a5d3335879853"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Cf-Ray:
+      - 8a514176a81e40d8-SIN
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=bGiiy06X%2BzS%2F7BUH1neYDgeoKVtd%2F1RekM1pGZsgnjegh9x7iQY9oIWaSnGGjvG4h%2BXhh2U21KsjLsxrVWYsXtYOKR3uOQVzrIGzXInPp9TlfCcgS58yXNq7J86L7DZx"}],"group":"cf-nel","max_age":604800}'
+      Vary:
+      - Origin, Accept-Encoding
+      X-Request-Id:
+      - ad761e37-6b27-4658-9e13-e6dbddff0d2d
+      X-Runtime:
+      - '0.125620'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Judge0-Tat:
+      - '857'
+      X-Judge0-Region:
+      - AS
+      Cf-Cache-Status:
+      - DYNAMIC
+      X-Ratelimit-Batched-Submissions-Limit:
+      - '50'
+      X-Ratelimit-Batched-Submissions-Remaining:
+      - '50'
+      X-Ratelimit-Batched-Submissions-Reset:
+      - '9882'
+      X-Ratelimit-Submissions-Limit:
+      - '50'
+      X-Ratelimit-Submissions-Remaining:
+      - '47'
+      X-Ratelimit-Submissions-Reset:
+      - '9882'
+      X-Ratelimit-Rapid-Free-Plans-Hard-Limit-Limit:
+      - '500000'
+      X-Ratelimit-Rapid-Free-Plans-Hard-Limit-Remaining:
+      - '499758'
+      X-Ratelimit-Rapid-Free-Plans-Hard-Limit-Reset:
+      - '2429082'
+      Server:
+      - RapidAPI-1.2.8
+      X-Rapidapi-Version:
+      - 1.2.8
+      X-Rapidapi-Region:
+      - AWS - ap-southeast-1
+    body:
+      encoding: UTF-8
+      string: '{"token":"b9242daa-8263-4cc8-bed9-6b312f924e35"}'
+  recorded_at: Thu, 18 Jul 2024 08:55:58 GMT
+recorded_with: VCR 6.2.0
