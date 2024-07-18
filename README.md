@@ -9,6 +9,13 @@ A Ruby module simplifying interactions with the Judge0 API, supporting operation
 - **Submission Handling:** Code submission and retrieval of submission details.
 - **Error Handling:** Checks for invalid inputs and missing parameters.
 
+## Dependencies
+
+- **Faraday**
+- **RSpec:**
+- **WebMock**
+- **Vcr:**
+
 ## Getting Started
 
 1. Clone the project.
