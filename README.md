@@ -12,9 +12,9 @@ A Ruby module simplifying interactions with the Judge0 API, supporting operation
 ## Dependencies
 
 - **Faraday**
-- **RSpec:**
+- **RSpec**
 - **WebMock**
-- **Vcr:**
+- **Vcr**
 
 ## Getting Started
 
