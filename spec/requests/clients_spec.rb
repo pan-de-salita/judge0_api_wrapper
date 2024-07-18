@@ -22,9 +22,11 @@ RSpec.describe Judge0::Client, type: :request do
 
   describe '.statuses' do
     let(:statuses_data) do
-      { 'data' => [{ 'id' => 1, 'description' => 'In Queue' },
-                   { 'id' => 2, 'description' => 'Processing' },
-                   { 'id' => 3, 'description' => 'Accepted' }] }
+      { 'data' => [
+        { 'id' => 1, 'description' => 'In Queue' },
+        { 'id' => 2, 'description' => 'Processing' },
+        { 'id' => 3, 'description' => 'Accepted' }
+      ] }
     end
     let(:statuses_body) { base_body.merge(statuses_data).to_json }
 

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
       # Languages
       get '/languages', to: 'languages#index'
+      get '/language/:language_id', to: 'languages#show'
 
       # Submissions
       post '/write_submission', to: 'submissions#create'

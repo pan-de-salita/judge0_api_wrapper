@@ -3,17 +3,26 @@
 module Api
   module V1
     class LanguagesController < ApplicationController
-      before_action :fetch_languages
+      before_action :fetch_languages, except: :show
 
       def index
         filter_language_by_active_status(params[:active].to_s.downcase) if params[:active]
         render json: @languages
       end
 
+      def show
+        language = Judge0::Client.language(language_id: language_params.to_i)
+        render json: language
+      end
+
       private
 
       def fetch_languages
         @languages = Judge0::Client.all_languages
+      end
+
+      def language_params
+        params.require :language_id
       end
 
       def filter_language_by_active_status(active_status)
