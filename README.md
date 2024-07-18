@@ -28,39 +28,39 @@ A Ruby module simplifying interactions with the Judge0 API, supporting operation
 ### Fetching response statuses
 
 ```
-Judge0.client.statuses
+Judge0::Client.statuses
 ```
 
 ### Retrieving active languages
 
 ```
-Judge0.client.languages
+Judge0::Client.languages
 ```
 
 ### Getting all languages, both active and archived
 
 ```
-Judge0.client.all_languages
+Judge0::Client.all_languages
 ```
 
 ### Fetching details about a specific language
 
 ```
 # Returns details on Ruby 2.7.0
-Judge0.client.language(language_id: 72) 
+Judge0::Client.language(language_id: 72) 
 ```
 
 ### Submitting source code for evaluation
 
 ```
 # Returns a submission_token
-Judge0.client.write_submission( source_code: "puts 'Hello from Ruby!'", language_id: 72, stdin: nil ) 
+Judge0::Client.write_submission( source_code: "puts 'Hello from Ruby!'", language_id: 72, stdin: nil ) 
 ```
 
 ### Reading submission details
 
 ```
-Judge0.client.read_submission( token: "submission_token_here", fields: [:source_code, :stdout, :stderr])
+Judge0::Client.read_submission( token: "submission_token_here", fields: [:source_code, :stdout, :stderr])
 ```
 
 ## Contributing
