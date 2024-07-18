@@ -22,7 +22,7 @@ module Judge0
       end
 
       { status: result.status, reason_phrase: result.reason_phrase,
-        submissions_remaining: result.headers['x-ratelimit-submissions-remaining'], data: result.body }
+        submissions_remaining: result.headers['x-ratelimit-submissions-remaining'].to_i, data: result.body }
     rescue Faraday::Error => e
       { status: e.response_status, message: Errors.translate(e.response_status), data: JSON.parse(e.response_body) }
     end

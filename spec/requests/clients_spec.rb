@@ -15,6 +15,7 @@ RSpec.describe Judge0::Client, type: :request do
     {
       'status' => 200,
       'reason_phrase' => 'OK',
+      'submissions_remaining' => 50,
       'data' => []
     }
   end
@@ -37,6 +38,7 @@ RSpec.describe Judge0::Client, type: :request do
 
       expect(response[:status]).to eq(200)
       expect(parsed_response_data['reason_phrase']).to eq('OK')
+      expect(parsed_response_data['submissions_remaining']).to eq(50)
       expect(parsed_response_data['data']).to be_kind_of(Array)
       expect(parsed_response_data['data'].all? { |entry| entry.keys == %w[id description] }).to be_truthy
       expect(parsed_response_data['data'].first['description']).to eq('In Queue')
@@ -63,6 +65,7 @@ RSpec.describe Judge0::Client, type: :request do
 
       expect(response[:status]).to eq(200)
       expect(parsed_response_data['reason_phrase']).to eq('OK')
+      expect(parsed_response_data['submissions_remaining']).to eq(50)
       expect(parsed_response_data['data']).to be_kind_of(Array)
       expect(parsed_response_data['data'].all? { |entry| entry.keys == %w[id name] }).to be_truthy
       expect(parsed_response_data['data'].first['name']).to eq('Assembly (NASM 2.14.02)')
@@ -70,6 +73,30 @@ RSpec.describe Judge0::Client, type: :request do
   end
 
   describe '.all_languages' do
+    let(:all_languages_data) do
+      { 'data' => [
+        { 'id' => 45, 'name' => 'Assembly (NASM 2.14.02)', 'is_archived' => false },
+        { 'id' => 2, 'name' => 'Bash (4.0)', 'is_archived' => true },
+        { 'id' => 1, 'name' => 'Bash (4.4)', 'is_archived' => true }
+      ] }
+    end
+    let(:all_languages_body) { base_body.merge(all_languages_data).to_json }
+
+    it 'makes a GET request to /languages/all' do
+      stub_request(:get, "#{base_url}/languages/all")
+        .with(headers:)
+        .to_return(status: 200, body: all_languages_body)
+
+      response = Judge0::Client.all_languages
+      parsed_response_data = JSON.parse(response[:data])
+
+      expect(response[:status]).to eq(200)
+      expect(parsed_response_data['reason_phrase']).to eq('OK')
+      expect(parsed_response_data['submissions_remaining']).to eq(50)
+      expect(parsed_response_data['data']).to be_kind_of(Array)
+      expect(parsed_response_data['data'].all? { |entry| entry.keys == %w[id name is_archived] }).to be_truthy
+      expect(parsed_response_data['data'].first['is_archived']).to eq(false)
+    end
   end
 
   describe '.language' do
