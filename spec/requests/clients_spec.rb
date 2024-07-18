@@ -102,6 +102,33 @@ RSpec.describe Judge0::Client, type: :request do
   end
 
   describe '.language' do
+    let(:language_data) do
+      { 'data' => {
+        'id' => 72,
+        'name' => 'Ruby (2.7.0)',
+        'is_archived' => false,
+        'source_file' => 'script.rb',
+        'compile_cmd' => nil,
+        'run_cmd' => '/usr/local/ruby-2.7.0/bin/ruby script.rb'
+      } }
+    end
+    let(:language_body) { base_body.merge(language_data).to_json }
+
+    it 'makes a GET request to /language/language_id' do
+      stub_request(:get, "#{base_url}/languages/#{language_data['data']['id']}")
+        .with(headers:)
+        .to_return(status: 200, body: language_body)
+
+      response = Judge0::Client.language(language_id: language_data['data']['id'])
+      parsed_response_data = JSON.parse(response[:data])
+
+      expect(response[:status]).to eq(200)
+      expect(parsed_response_data['reason_phrase']).to eq('OK')
+      expect(parsed_response_data['submissions_remaining']).to eq(50)
+      expect(parsed_response_data['data']).to be_kind_of(Hash)
+      expect(parsed_response_data['data'].keys).to eq(%w[id name is_archived source_file compile_cmd run_cmd])
+      expect(parsed_response_data['data']['name']).to eq('Ruby (2.7.0)')
+    end
   end
 
   ##############################################################################
