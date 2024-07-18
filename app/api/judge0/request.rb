@@ -24,7 +24,8 @@ module Judge0
       { status: result.status, reason_phrase: result.reason_phrase,
         submissions_remaining: result.headers['x-ratelimit-submissions-remaining'].to_i, data: result.body }
     rescue Faraday::Error => e
-      { status: e.response_status, message: Errors.translate(e.response_status), data: JSON.parse(e.response_body) }
+      data = e.response_body.blank? ? nil : JSON.parse(e.response_body)
+      { status: e.response_status, message: Errors.translate(e.response_status), data: }
     end
   end
 end

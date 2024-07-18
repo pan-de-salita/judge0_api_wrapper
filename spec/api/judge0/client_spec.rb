@@ -132,39 +132,59 @@ RSpec.describe Judge0::Client, type: :request do
     end
   end
 
-  describe '.language' do
-    # Data representing a single programming language
-    let(:language_data) do
-      { 'data' => {
-        'id' => 72,
-        'name' => 'Ruby (2.7.0)',
-        'is_archived' => false,
-        'source_file' => 'script.rb',
-        'compile_cmd' => nil,
-        'run_cmd' => '/usr/local/ruby-2.7.0/bin/ruby script.rb'
-      } }
+  context '.language' do
+    describe 'when a valid language_id is provided' do
+      # Data representing a single programming language
+      let(:language_data) do
+        { 'data' => {
+          'id' => 72,
+          'name' => 'Ruby (2.7.0)',
+          'is_archived' => false,
+          'source_file' => 'script.rb',
+          'compile_cmd' => nil,
+          'run_cmd' => '/usr/local/ruby-2.7.0/bin/ruby script.rb'
+        } }
+      end
+
+      # Merged base body with language data, converted to JSON
+      let(:language_body) { base_body.merge(language_data).to_json }
+
+      it 'makes a GET request to /language/language_id' do
+        # Stub the request to simulate a successful response
+        stub_request(:get, "#{base_url}/languages/#{language_data['data']['id']}")
+          .with(headers:)
+          .to_return(status: 200, body: language_body)
+
+        # Call the language method and parse the response
+        response = Judge0::Client.language(language_id: language_data['data']['id'])
+        parsed_response_data = JSON.parse(response[:data])
+
+        # Assert that the response has the expected properties
+        expect(response[:status]).to eq(200)
+        expect(parsed_response_data['reason_phrase']).to eq('OK')
+        expect(parsed_response_data['submissions_remaining']).to eq(50)
+        expect(parsed_response_data['data']).to be_kind_of(Hash)
+        expect(parsed_response_data['data'].keys).to eq(%w[id name is_archived source_file compile_cmd run_cmd])
+        expect(parsed_response_data['data']['name']).to eq('Ruby (2.7.0)')
+      end
     end
 
-    # Merged base body with language data, converted to JSON
-    let(:language_body) { base_body.merge(language_data).to_json }
+    describe 'when an invalid language_id is provided' do
+      it 'returns a 404 error' do
+        # Stub the request to simulate aun unsuccessful response
+        stub_request(:get, "#{base_url}/languages/123456789")
+          .with(headers:)
+          .to_return(status: 404, body: { status: 404, message: 'Resource not found', data: nil }.to_json)
 
-    it 'makes a GET request to /language/language_id' do
-      # Stub the request to simulate a successful response
-      stub_request(:get, "#{base_url}/languages/#{language_data['data']['id']}")
-        .with(headers:)
-        .to_return(status: 200, body: language_body)
+        # Call the language method and parse the response
+        response = Judge0::Client.language(language_id: 123_456_789)
+        parsed_response_data = response[:data]
 
-      # Call the language method and parse the response
-      response = Judge0::Client.language(language_id: language_data['data']['id'])
-      parsed_response_data = JSON.parse(response[:data])
-
-      # Assert that the response has the expected properties
-      expect(response[:status]).to eq(200)
-      expect(parsed_response_data['reason_phrase']).to eq('OK')
-      expect(parsed_response_data['submissions_remaining']).to eq(50)
-      expect(parsed_response_data['data']).to be_kind_of(Hash)
-      expect(parsed_response_data['data'].keys).to eq(%w[id name is_archived source_file compile_cmd run_cmd])
-      expect(parsed_response_data['data']['name']).to eq('Ruby (2.7.0)')
+        # Assert that the response has the expected properties
+        expect(response[:status]).to eq(404)
+        expect(parsed_response_data['message']).to eq('Resource not found')
+        expect(parsed_response_data['data']).to be_nil
+      end
     end
   end
 
