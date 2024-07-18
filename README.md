@@ -12,8 +12,8 @@ A Ruby module simplifying interactions with the Judge0 API, supporting operation
 ## Dependencies
 
 - **Faraday**
-- **RSpec**
-- **WebMock**
+- **Rspec**
+- **Webmock**
 - **Vcr**
 
 ## Getting Started
