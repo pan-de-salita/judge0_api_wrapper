@@ -20,7 +20,7 @@ module Api
       private
 
       def create_submission_params
-        params.require(:submission).permit %i[source_code language_id stdin]
+        params.require(:submission).permit :source_code, :language_id, :stdir
       end
 
       def read_submission_params
